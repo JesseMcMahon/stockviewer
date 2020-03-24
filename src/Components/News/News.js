@@ -18,19 +18,29 @@ const News = ({
       <h1>Top News Stories</h1>
       <ul>
         <li>
-          <a href={newsOneURL}>{newsOne}</a>
+          <a target="_blank" rel="noopener noreferrer" href={newsOneURL}>
+            {newsOne}
+          </a>
         </li>
         <li>
-          <a href={newsTwoURL}>{newsTwo}</a>
+          <a target="_blank" rel="noopener noreferrer" href={newsTwoURL}>
+            {newsTwo}
+          </a>
         </li>
         <li>
-          <a href={newsThreeURL}>{newsThree}</a>
+          <a target="_blank" rel="noopener noreferrer" href={newsThreeURL}>
+            {newsThree}
+          </a>
         </li>
         <li>
-          <a href={newsFourURL}>{newsFour}</a>
+          <a target="_blank" rel="noopener noreferrer" href={newsFourURL}>
+            {newsFour}
+          </a>
         </li>
         <li>
-          <a href={newsFiveURL}>{newsFive}</a>
+          <a target="_blank" rel="noopener noreferrer" href={newsFiveURL}>
+            {newsFive}
+          </a>
         </li>
       </ul>
     </div>

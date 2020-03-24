@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "./Search.css";
 import Table from "../Table/Table";
@@ -7,7 +7,7 @@ import Chart from "../Chart/Chart";
 import News from "../News/News";
 
 const Search = () => {
-  const [hasErrors, setErrors] = useState();
+  // const [hasErrors, setErrors] = useState();
 
   //profile variables
 
@@ -31,7 +31,7 @@ const Search = () => {
   const [stockChartXValues, setStockChartXValues] = useState();
   const [stockChartYValues, setStockChartYValues] = useState();
 
-  //NewsStories variables
+  //News variables
 
   const [pickedStockNewsStoryOne, setPickedStockNewsStoryOne] = useState();
   const [pickedStockNewsStoryTwo, setPickedStockNewsStoryTwo] = useState();
@@ -77,11 +77,7 @@ const Search = () => {
       .value.toUpperCase();
     e.preventDefault();
 
-    const stock = e.target.value;
     async function getStockInfo() {
-      let stockChartXValuesFunction = [];
-      let stockChartYValuesFunction = [];
-
       const results = await axios.get(
         `https://finnhub.io/api/v1/quote?symbol=${stockPicked}&token=${token}`
       );
@@ -97,11 +93,16 @@ const Search = () => {
         `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&outputsize=compact&interval=5min&apikey=${alphaAPIKey}`
       );
 
+      let stockChartXValuesFunction = [];
+      let stockChartYValuesFunction = [];
+
       for (const key in chartData["data"]["Time Series (Daily)"]) {
         stockChartXValuesFunction.push(key);
         stockChartYValuesFunction.push(
           chartData["data"]["Time Series (Daily)"][key]["4. close"]
         );
+        setStockChartXValues(stockChartXValuesFunction);
+        setStockChartYValues(stockChartYValuesFunction);
       }
 
       console.log(results.data);
@@ -122,8 +123,6 @@ const Search = () => {
       setPickedStockEmployeeTotal(profile.data.employeeTotal);
       setPickedStockWebURL(profile.data.weburl);
       setPickedStockChartData(chartData);
-      setStockChartXValues(stockChartXValuesFunction);
-      setStockChartYValues(stockChartYValuesFunction);
       setPickedStockNewsStoryOne(news.data[0]["headline"]);
       setPickedStockNewsStoryTwo(news.data[1]["headline"]);
       setPickedStockNewsStoryThree(news.data[2]["headline"]);

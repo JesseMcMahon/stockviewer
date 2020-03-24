@@ -1,5 +1,4 @@
 import React from "react";
-import Search from "../Search/Search";
 import "./Table.css";
 
 const Table = ({ open, high, low, close }) => {

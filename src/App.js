@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import "./App.css";
 import Search from "./Components/Search/Search";
-import Table from "./Components/Table/Table";
 
 const App = () => {
   return (
