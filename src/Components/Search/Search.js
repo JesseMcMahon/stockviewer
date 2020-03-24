@@ -105,8 +105,6 @@ const Search = () => {
         setStockChartYValues(stockChartYValuesFunction);
       }
 
-      console.log(results.data);
-      console.log(news);
       setPickedStockOpen(results.data.o.toFixed(2));
       setPickedStockHigh(results.data.h.toFixed(2));
       setPickedStockLow(results.data.l.toFixed(2));
