@@ -77,11 +77,6 @@ const Search = () => {
       .value.toUpperCase();
     e.preventDefault();
 
-    const emptyChartData = () => {
-      let stockChartXValues = [];
-      let stockChartYValues = [];
-    };
-
     let stockChartXValuesFunction = [];
     let stockChartYValuesFunction = [];
 
