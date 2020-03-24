@@ -77,6 +77,14 @@ const Search = () => {
       .value.toUpperCase();
     e.preventDefault();
 
+    const emptyChartData = () => {
+      let stockChartXValues = [];
+      let stockChartYValues = [];
+    };
+
+    let stockChartXValuesFunction = [];
+    let stockChartYValuesFunction = [];
+
     async function getStockInfo() {
       const results = await axios.get(
         `https://finnhub.io/api/v1/quote?symbol=${stockPicked}&token=${token}`
@@ -90,11 +98,8 @@ const Search = () => {
       );
 
       const chartData = await axios.get(
-        `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&outputsize=compact&interval=5min&apikey=${alphaAPIKey}`
+        `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockPicked}&outputsize=compact&interval=5min&apikey=${alphaAPIKey}`
       );
-
-      let stockChartXValuesFunction = [];
-      let stockChartYValuesFunction = [];
 
       for (const key in chartData["data"]["Time Series (Daily)"]) {
         stockChartXValuesFunction.push(key);
@@ -107,7 +112,6 @@ const Search = () => {
 
       console.log(results.data);
       console.log(news);
-
       setPickedStockOpen(results.data.o.toFixed(2));
       setPickedStockHigh(results.data.h.toFixed(2));
       setPickedStockLow(results.data.l.toFixed(2));
@@ -177,7 +181,6 @@ const Search = () => {
       <form onSubmit={handleClick}>
         <input
           className="inputs"
-          defaultValue="MSFT"
           id="stockInput"
           type="text"
           placeholder="Enter Stock Symbol Here.."
