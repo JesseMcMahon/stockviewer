@@ -1,0 +1,35 @@
+.inputs {
+  text-align: center;
+  border: 0.1px solid black;
+}
+
+.inputs:focus {
+  outline: 0;
+}
+
+#stockInput {
+  height: 20px;
+  width: 15%;
+  position: fixed;
+  left: 42.5%;
+  top: 85%;
+}
+
+#stockSubmit {
+  font-size: 30px;
+  font-weight: 100;
+  letter-spacing: 5px;
+  position: fixed;
+  top: 90%;
+  left: 40%;
+  height: 40px;
+  width: 20%;
+  color: white;
+  background-color: #bb86fc;
+  border-radius: 10px;
+}
+
+#stockSubmit:hover {
+  background-color: #03dac5;
+  cursor: pointer;
+}
