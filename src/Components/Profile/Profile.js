@@ -15,7 +15,7 @@ const Profile = ({
 }) => {
   return (
     <div className="profileDiv">
-      <h1>Company Snapshot:</h1>
+      <h1>Company Snapshot</h1>
       <h2>
         {name} {symbol}
       </h2>

@@ -4,9 +4,12 @@ import "./Search.css";
 import Table from "../Table/Table";
 import Profile from "../Profile/Profile";
 import Chart from "../Chart/Chart";
+import News from "../News/News";
 
 const Search = () => {
   const [hasErrors, setErrors] = useState();
+
+  //profile variables
 
   const [pickedStockName, setPickedStockName] = useState();
   const [pickedStockAddress, setPickedStockAddress] = useState();
@@ -28,6 +31,37 @@ const Search = () => {
   const [stockChartXValues, setStockChartXValues] = useState();
   const [stockChartYValues, setStockChartYValues] = useState();
 
+  //NewsStories variables
+
+  const [pickedStockNewsStoryOne, setPickedStockNewsStoryOne] = useState();
+  const [pickedStockNewsStoryTwo, setPickedStockNewsStoryTwo] = useState();
+  const [pickedStockNewsStoryThree, setPickedStockNewsStoryThree] = useState();
+  const [pickedStockNewsStoryFour, setPickedStockNewsStoryFour] = useState();
+  const [pickedStockNewsStoryFive, setPickedStockNewsStoryFive] = useState();
+
+  const [
+    pickedStockNewsStoryOneURL,
+    setPickedStockNewsStoryOneURL
+  ] = useState();
+  const [
+    pickedStockNewsStoryTwoURL,
+    setPickedStockNewsStoryTwoURL
+  ] = useState();
+  const [
+    pickedStockNewsStoryThreeURL,
+    setPickedStockNewsStoryThreeURL
+  ] = useState();
+  const [
+    pickedStockNewsStoryFourURL,
+    setPickedStockNewsStoryFourURL
+  ] = useState();
+  const [
+    pickedStockNewsStoryFiveURL,
+    setPickedStockNewsStoryFiveURL
+  ] = useState();
+
+  //table variables
+
   const [pickedStockOpen, setPickedStockOpen] = useState();
   const [pickedStockHigh, setPickedStockHigh] = useState();
   const [pickedStockLow, setPickedStockLow] = useState();
@@ -47,7 +81,6 @@ const Search = () => {
     async function getStockInfo() {
       let stockChartXValuesFunction = [];
       let stockChartYValuesFunction = [];
-      let stockChartNews = [];
 
       const results = await axios.get(
         `https://finnhub.io/api/v1/quote?symbol=${stockPicked}&token=${token}`
@@ -56,9 +89,9 @@ const Search = () => {
         `https://finnhub.io/api/v1/stock/profile?symbol=${stockPicked}&token=${token}`
       );
 
-      // const news = await axios.get(
-      //   `https://finnhub.io/api/v1/news?symbol=${stockPicked}&token=${token}`
-      // );
+      const news = await axios.get(
+        `https://finnhub.io/api/v1/news?symbol=${stockPicked}&token=${token}`
+      );
 
       const chartData = await axios.get(
         `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&outputsize=compact&interval=5min&apikey=${alphaAPIKey}`
@@ -71,13 +104,8 @@ const Search = () => {
         );
       }
 
-      // for (const key in news["data"]) {
-      //   stockChartNews.push(news.data[key]["0"]);
-      // }
-
       console.log(results.data);
-
-      // console.log(stockChartNews);
+      console.log(news);
 
       setPickedStockOpen(results.data.o.toFixed(2));
       setPickedStockHigh(results.data.h.toFixed(2));
@@ -96,6 +124,17 @@ const Search = () => {
       setPickedStockChartData(chartData);
       setStockChartXValues(stockChartXValuesFunction);
       setStockChartYValues(stockChartYValuesFunction);
+      setPickedStockNewsStoryOne(news.data[0]["headline"]);
+      setPickedStockNewsStoryTwo(news.data[1]["headline"]);
+      setPickedStockNewsStoryThree(news.data[2]["headline"]);
+      setPickedStockNewsStoryFour(news.data[3]["headline"]);
+      setPickedStockNewsStoryFive(news.data[4]["headline"]);
+
+      setPickedStockNewsStoryOneURL(news.data[0]["url"]);
+      setPickedStockNewsStoryTwoURL(news.data[1]["url"]);
+      setPickedStockNewsStoryThreeURL(news.data[2]["url"]);
+      setPickedStockNewsStoryFourURL(news.data[3]["url"]);
+      setPickedStockNewsStoryFiveURL(news.data[4]["url"]);
     }
     getStockInfo();
   };
@@ -123,6 +162,18 @@ const Search = () => {
         high={pickedStockHigh}
         low={pickedStockLow}
         close={pickedStockClose}
+      />
+      <News
+        newsOne={pickedStockNewsStoryOne}
+        newsOneURL={pickedStockNewsStoryOneURL}
+        newsTwo={pickedStockNewsStoryTwo}
+        newsTwoURL={pickedStockNewsStoryTwoURL}
+        newsThree={pickedStockNewsStoryThree}
+        newsThreeURL={pickedStockNewsStoryThreeURL}
+        newsFour={pickedStockNewsStoryFour}
+        newsFourURL={pickedStockNewsStoryFourURL}
+        newsFive={pickedStockNewsStoryFive}
+        newsFiveURL={pickedStockNewsStoryFiveURL}
       />
       <form onSubmit={handleClick}>
         <input
